@@ -24,9 +24,8 @@ def handle_invalid_usage(error):
 
 payload_output_schema =  {
                         'success': {'type': 'boolean', 'required': True},
-                        'payload': {'type': 'list', 'required': True, 'schema':{'type':'dict', 'schema': {'hedged_rate':{'type':'number', 'nullable': True},'spot_rate':{'type':'number'},'pair':{'type':'string'},'date':{'type':'string'}} }}
+                        'payload': {'type': 'dict', 'required': True, 'schema': {'risk':{'type':'number'}}}
                         }
-                        
 
 payload_input_schema = {
                     'pair': {'type': 'string', 'required': True}

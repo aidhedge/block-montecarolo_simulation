@@ -69,5 +69,7 @@ class MonteCarlo():
         for _ in range(0, 10000):
             val = self.monteCarloOneDay(mu, sigma, start_rate)
             sim_temp.append(val)
+        
         risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
-        return json.dumps(dict(risk=risk))
+        
+        return json.dumps(dict(success=True, payload=dict(risk=risk)))
