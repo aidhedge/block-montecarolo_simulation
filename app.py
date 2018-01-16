@@ -7,6 +7,9 @@ from cerberus import Validator
 from exceptions import payLoadIsMissing
 from exceptions import malformedJson
 from exceptions import payloadNotMatchingSchema
+from monteCarloSimulation import MonteCarlo
+
+
 app = Flask(__name__)
 
 
@@ -19,19 +22,35 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+payload_output_schema =  {
+                        'success': {'type': 'boolean', 'required': True},
+                        'payload': {'type': 'list', 'required': True, 'schema':{'type':'dict', 'schema': {'hedged_rate':{'type':'number', 'nullable': True},'spot_rate':{'type':'number'},'pair':{'type':'string'},'date':{'type':'string'}} }}
+                        }
+                        
 
+payload_input_schema = {
+                    'pair': {'type': 'string', 'required': True}
+                    }
+
+
+
+@app.route("/ping")
+def ping():
+    return "Pong!"
+
+@app.route("/schema")
+def schema():
+    return json.dumps(dict(input=payload_input_schema, output=payload_output_schema))
+
+@app.route("/", methods=['GET'])
+def index():
+    return 'Block-MonteCarloSim'
+
+@app.route("/", methods=['POST'])
 @app.route("/simulate", methods=['POST'])
 def simulate():
-    payload_schema = {
-                    'pair': {'type': 'string', 'required': True},
-                    'from_date': {'type': 'string', 'required': True},
-                    'to_date': {'type': 'string', 'required': True}
-                    }
-    validate = Validator(payload_schema)
-    
+    v = Validator()
+    v.schema = payload_input_schema
     payload = request.form.get('payload', None)
     if not(payload):
         raise payLoadIsMissing('There is no payload', status_code=500)
@@ -39,10 +58,11 @@ def simulate():
         payload = json.loads(payload)
     except:
         raise malformedJson("Payload present but malformed")
-    if validate(payload):
-        return 'OK'
+    if v(payload):
+        mc = MonteCarlo(pair=payload['pair'])
+        return mc.run()
     else:
-        raise payloadNotMatchingSchema("Payload didn't match schema ({})".format(str(payload_schema)))
+        raise payloadNotMatchingSchema("Payload didn't match schema ({}\n{})".format(payload_input_schema, v.errors))
         
 
 if __name__ == "__main__":

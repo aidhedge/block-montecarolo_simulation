@@ -10,6 +10,7 @@ class baseExpcetion(Exception):
 
     def to_dict(self):
         rv = dict(self.payload or ())
+        rv['success'] = False
         rv['message'] = self.message
         return rv
 
@@ -21,4 +22,13 @@ class malformedJson(baseExpcetion):
 
 class payloadNotMatchingSchema(baseExpcetion):
     pass
+
+class NotAbleToConnectToSourceApi(baseExpcetion):
+    pass 
+
+class ResponseFromCurrencyApiNotSuccessfull(baseExpcetion):
+    pass 
+
+class NoAPIKeyPresent(baseExpcetion):
+    pass 
 
