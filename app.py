@@ -8,7 +8,8 @@ from exceptions import payLoadIsMissing
 from exceptions import malformedJson
 from exceptions import payloadNotMatchingSchema
 from monteCarloSimulation import MonteCarlo
-
+from logger import Logger
+LOG = Logger()
 
 app = Flask(__name__)
 
@@ -51,12 +52,13 @@ def simulate():
     v = Validator()
     v.schema = payload_input_schema
     payload = request.form.get('payload', None)
+    LOG.console(payload)
     if not(payload):
         raise payLoadIsMissing('There is no payload', status_code=500)
     try:
         payload = json.loads(payload)
     except:
-        raise malformedJson("Payload present but malformed")
+        raise malformedJson("Payload present but malformed: {}".format(payload))
     if v(payload):
         mc = MonteCarlo(pair=payload['pair'])
         return mc.run()
@@ -65,5 +67,5 @@ def simulate():
         
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT'))
     app.run(host='0.0.0.0', port=port)

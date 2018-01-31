@@ -1,3 +1,5 @@
+from logger import Logger
+LOG = Logger()
 class baseExpcetion(Exception):
     status_code = 400
 
@@ -12,6 +14,7 @@ class baseExpcetion(Exception):
         rv = dict(self.payload or ())
         rv['success'] = False
         rv['message'] = self.message
+        LOG.console(rv)
         return rv
 
 class payLoadIsMissing(baseExpcetion):
