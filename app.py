@@ -25,7 +25,9 @@ def handle_invalid_usage(error):
 
 payload_output_schema =  {
                         'success': {'type': 'boolean', 'required': True},
-                        'payload': {'type': 'dict', 'required': True, 'schema': {'risk':{'type':'number'}}}
+                        'payload': {'type': 'dict', 'required': True, 'schema': {
+                                                                                'risk':{'type':'number'}, 
+                                                                                'pair':{'type':'string'}} }
                         }
 
 payload_input_schema = {
@@ -61,7 +63,8 @@ def simulate():
         raise malformedJson("Payload present but malformed: {}".format(payload))
     if v(payload):
         mc = MonteCarlo(pair=payload['pair'])
-        return mc.run()
+        res = mc.run()
+        return res
     else:
         raise payloadNotMatchingSchema("Payload didn't match schema ({}\n{})".format(payload_input_schema, v.errors))
         

@@ -60,7 +60,7 @@ class MonteCarlo():
         start_rate = rates[-1]['rate']
         rates = np.array([x['rate'] for x in rates], dtype=float)
         change = np.diff(rates) / rates[:-1] * 100
-        change = np.clip(change,-10,10) 
+        change = np.clip(change,-30,30) 
 
         mu = change.mean()
         sigma = change.std()
@@ -72,4 +72,4 @@ class MonteCarlo():
         
         risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
         
-        return json.dumps(dict(success=True, payload=dict(risk=risk)))
+        return json.dumps(dict(success=True, payload=dict(risk=risk, pair=self.pair)))
