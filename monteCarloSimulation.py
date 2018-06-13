@@ -70,6 +70,21 @@ class MonteCarlo():
             val = self.monteCarloOneDay(mu, sigma, start_rate)
             sim_temp.append(val)
         
-        risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
         
-        return json.dumps(dict(success=True, payload=dict(risk=risk, pair=self.pair)))
+        risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
+        percentiles = dict(
+            p10 = float( (np.percentile(sim_temp,10)/start_rate*100)-100 )
+            p20 = float( (np.percentile(sim_temp,20)/start_rate*100)-100 )
+            p30 = float( (np.percentile(sim_temp,30)/start_rate*100)-100 )
+            p40 = float( (np.percentile(sim_temp,40)/start_rate*100)-100 )
+            p50 = float( (np.percentile(sim_temp,50)/start_rate*100)-100 )
+            p60 = float( (np.percentile(sim_temp,60)/start_rate*100)-100 )
+            p70 = float( (np.percentile(sim_temp,70)/start_rate*100)-100 )
+            p80 = float( (np.percentile(sim_temp,80)/start_rate*100)-100 )
+            p90 = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
+            p95 = float( (np.percentile(sim_temp,95)/start_rate*100)-100 )
+            p99 = float( (np.percentile(sim_temp,99)/start_rate*100)-100 )
+        )
+
+        
+        return json.dumps(dict(success=True, payload=dict(percentiles=percentiles, risk=risk, pair=self.pair)))
