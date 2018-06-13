@@ -73,17 +73,17 @@ class MonteCarlo():
         
         risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
         percentiles = dict(
-            p10 = float( (np.percentile(sim_temp,10)/start_rate*100)-100 ),
-            p20 = float( (np.percentile(sim_temp,20)/start_rate*100)-100 ),
-            p30 = float( (np.percentile(sim_temp,30)/start_rate*100)-100 ),
-            p40 = float( (np.percentile(sim_temp,40)/start_rate*100)-100 ),
-            p50 = float( (np.percentile(sim_temp,50)/start_rate*100)-100 ),
-            p60 = float( (np.percentile(sim_temp,60)/start_rate*100)-100 ),
-            p70 = float( (np.percentile(sim_temp,70)/start_rate*100)-100 ),
-            p80 = float( (np.percentile(sim_temp,80)/start_rate*100)-100 ),
-            p90 = float( (np.percentile(sim_temp,90)/start_rate*100)-100 ),
-            p95 = float( (np.percentile(sim_temp,95)/start_rate*100)-100 ),
-            p99 = float( (np.percentile(sim_temp,99)/start_rate*100)-100 )
+            percentile='10', risk=float( (np.percentile(sim_temp,10)/start_rate*100)-100 ),
+            percentile='20', risk=float( (np.percentile(sim_temp,20)/start_rate*100)-100 ),
+            percentile='30', risk=float( (np.percentile(sim_temp,30)/start_rate*100)-100 ),
+            percentile='40', risk=float( (np.percentile(sim_temp,40)/start_rate*100)-100 ),
+            percentile='50', risk=float( (np.percentile(sim_temp,50)/start_rate*100)-100 ),
+            percentile='60', risk=float( (np.percentile(sim_temp,60)/start_rate*100)-100 ),
+            percentile='70', risk=float( (np.percentile(sim_temp,70)/start_rate*100)-100 ),
+            percentile='80', risk=float( (np.percentile(sim_temp,80)/start_rate*100)-100 ),
+            percentile='90', risk=float( (np.percentile(sim_temp,90)/start_rate*100)-100 ),
+            percentile='95', risk=float( (np.percentile(sim_temp,95)/start_rate*100)-100 ),
+            percentile='99', risk=float( (np.percentile(sim_temp,99)/start_rate*100)-100 )
         )
 
         
