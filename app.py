@@ -54,7 +54,6 @@ def simulate():
     v = Validator()
     v.schema = payload_input_schema
     payload = request.form.get('payload', None)
-    LOG.console(payload)
     if not(payload):
         raise payLoadIsMissing('There is no payload', status_code=500)
     try:
@@ -64,6 +63,7 @@ def simulate():
     if v(payload):
         mc = MonteCarlo(pair=payload['pair'])
         res = mc.run()
+        LOG.console(res)
         return res
     else:
         raise payloadNotMatchingSchema("Payload didn't match schema ({}\n{})".format(payload_input_schema, v.errors))

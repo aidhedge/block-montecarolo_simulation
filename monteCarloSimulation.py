@@ -72,19 +72,19 @@ class MonteCarlo():
         
         
         risk = float( (np.percentile(sim_temp,90)/start_rate*100)-100 )
-        percentiles = dict(
-            percentile='10', risk=float( (np.percentile(sim_temp,10)/start_rate*100)-100 ),
-            percentile='20', risk=float( (np.percentile(sim_temp,20)/start_rate*100)-100 ),
-            percentile='30', risk=float( (np.percentile(sim_temp,30)/start_rate*100)-100 ),
-            percentile='40', risk=float( (np.percentile(sim_temp,40)/start_rate*100)-100 ),
-            percentile='50', risk=float( (np.percentile(sim_temp,50)/start_rate*100)-100 ),
-            percentile='60', risk=float( (np.percentile(sim_temp,60)/start_rate*100)-100 ),
-            percentile='70', risk=float( (np.percentile(sim_temp,70)/start_rate*100)-100 ),
-            percentile='80', risk=float( (np.percentile(sim_temp,80)/start_rate*100)-100 ),
-            percentile='90', risk=float( (np.percentile(sim_temp,90)/start_rate*100)-100 ),
-            percentile='95', risk=float( (np.percentile(sim_temp,95)/start_rate*100)-100 ),
-            percentile='99', risk=float( (np.percentile(sim_temp,99)/start_rate*100)-100 )
-        )
+        percentiles = [
+            dict(percentile='10', risk=float( (np.percentile(sim_temp,10)/start_rate*100)-100 )),
+            dict(percentile='20', risk=float( (np.percentile(sim_temp,20)/start_rate*100)-100 )),
+            dict(percentile='30', risk=float( (np.percentile(sim_temp,30)/start_rate*100)-100 )),
+            dict(percentile='40', risk=float( (np.percentile(sim_temp,40)/start_rate*100)-100 )),
+            dict(percentile='50', risk=float( (np.percentile(sim_temp,50)/start_rate*100)-100 )),
+            dict(percentile='60', risk=float( (np.percentile(sim_temp,60)/start_rate*100)-100 )),
+            dict(percentile='70', risk=float( (np.percentile(sim_temp,70)/start_rate*100)-100 )),
+            dict(percentile='80', risk=float( (np.percentile(sim_temp,80)/start_rate*100)-100 )),
+            dict(percentile='90', risk=float( (np.percentile(sim_temp,90)/start_rate*100)-100 )),
+            dict(percentile='95', risk=float( (np.percentile(sim_temp,95)/start_rate*100)-100 )),
+            dict(percentile='99', risk=float( (np.percentile(sim_temp,99)/start_rate*100)-100 ))
+        ]
 
         
         return json.dumps(dict(success=True, payload=dict(percentiles=percentiles, risk=risk, pair=self.pair)))
