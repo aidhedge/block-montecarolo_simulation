@@ -87,4 +87,4 @@ class MonteCarlo():
         ]
 
         
-        return json.dumps(dict(success=True, payload=dict(percentiles=percentiles, risk=risk, pair=self.pair)))
+        return json.dumps(dict(success=True, payload=dict(percentiles=percentiles, mu=mu, sigma=sigma, risk=risk, pair=self.pair)))
