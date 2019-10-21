@@ -32,7 +32,7 @@ tqdm==4.19.1
 troposphere==2.2.0
 Unidecode==1.0.22
 urllib3==1.22
-Werkzeug==0.12
+Werkzeug==0.15.3
 wheel==0.30.0
 wsgi-request-logger==0.4.6
 zappa==0.45.1
